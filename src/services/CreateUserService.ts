@@ -6,11 +6,11 @@ interface IUserRequest {
   name: string
   email:string
   password:string
-  isAdmin?: boolean
+  admin?: boolean
 }
 
 class CreateUserService {
-  async execute({name, email,password, isAdmin = false}:IUserRequest) {
+  async execute({name, email, password, admin = false}:IUserRequest) {
     const usersRepository = getCustomRepository(UsersRepositories)
 
     if(!email) throw new Error("Email incorrect!")
@@ -25,7 +25,7 @@ class CreateUserService {
       name,
       email,
       password: passwordHash,
-      admin: isAdmin
+      admin
     })
 
     await usersRepository.save(user)
